@@ -1,5 +1,5 @@
 # Rubido WASM4 Version
-![DownloadCountTotal](https://img.shields.io/github/downloads/joyrider3774/rubido_WASM4/total?label=total%20downloads&style=plastic) ![DownloadCountLatest](https://img.shields.io/github/downloads/joyrider3774/rubido_WASM4/latest/total?style=plastic) ![LatestVersion](https://img.shields.io/github/v/tag/joyrider3774/rubido_WASM4?label=Latest%20version&style=plastic) ![License](https://img.shields.io/github/license/joyrider3774/rubido_WASM4?style=plastic)
+![DownloadCountTotal](https://img.shields.io/github/downloads/joyrider3774/rubido_wasm4/total?label=total%20downloads&style=plastic) ![DownloadCountLatest](https://img.shields.io/github/downloads/joyrider3774/rubido_wasm4/latest/total?style=plastic) ![LatestVersion](https://img.shields.io/github/v/tag/joyrider3774/rubido_wasm4?label=Latest%20version&style=plastic) ![License](https://img.shields.io/github/license/joyrider3774/rubido_wasm4?style=plastic)
 
 ![screenshot 1](screenshots/screenshot1.png) ![screenshot 2](screenshots/screenshot2.png)  ![screenshot 3](screenshots/screenshot3.png)
 ![screenshot 4](screenshots/screenshot4.png) 
