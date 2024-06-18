@@ -255,7 +255,8 @@ void Game()
 			CSelector_SetPosition(GameSelector, mousexPlayField, mouseyPlayField);
 		}
 	}
-	if(buttonReleased(BUTTON_2) || (!anyButtonReleased() && (mouseButtonReleased(MOUSE_RIGHT) && mouseInGameBounds())))
+
+	if(buttonReleased(BUTTON_2) || (!anyButtonReleased() && mouseButtonReleased(MOUSE_RIGHT) && mouseInGameBounds()))
 	{
 		if(!PrintFormShown)
 		{
@@ -264,12 +265,7 @@ void Game()
 		}
 	}
 	
-	if(buttonReleased(BUTTON_1) || (!anyButtonReleased() && (mouseButtonReleased(MOUSE_LEFT) && 
-		((*MOUSE_X >= XOffSet+ ((CSelector_GetPosition(GameSelector).X +0) * TileWidth)) &&
-		(*MOUSE_X <= XOffSet+ ((CSelector_GetPosition(GameSelector).X +1) * TileWidth)) &&
-		(*MOUSE_Y >= YOffSet+ ((CSelector_GetPosition(GameSelector).Y +0) * TileHeight)) &&
-		(*MOUSE_Y <= YOffSet+ ((CSelector_GetPosition(GameSelector).Y +1) * TileHeight))))))
-
+	if(buttonReleased(BUTTON_1) || (!anyButtonReleased() && mouseButtonReleased(MOUSE_LEFT) && mouseInGameBounds()))
 	{
 		if(PrintFormShown)
 		{
@@ -279,6 +275,14 @@ void Game()
 		}
 		else
 		{
+			//only accept mouse clicks if they are on the correct tile
+			if(!buttonReleased(BUTTON_1) &&  
+			!((*MOUSE_X >= XOffSet+ ((CSelector_GetPosition(GameSelector).X +0) * TileWidth)) &&
+			(*MOUSE_X <= XOffSet+ ((CSelector_GetPosition(GameSelector).X +1) * TileWidth)) &&
+			(*MOUSE_Y >= YOffSet+ ((CSelector_GetPosition(GameSelector).Y +0) * TileHeight)) &&
+			(*MOUSE_Y <= YOffSet+ ((CSelector_GetPosition(GameSelector).Y +1) * TileHeight))))
+				return;
+
 			if (GameSelector->HasSelection) // if we have a selection
 			{
 				bool cursorCanMoveto = CPeg_CanMoveTo(CBoardParts_GetPart(BoardParts,CSelector_GetSelection(GameSelector).X,CSelector_GetSelection(GameSelector).Y), CSelector_GetPosition(GameSelector).X,CSelector_GetPosition(GameSelector).Y,true); 
