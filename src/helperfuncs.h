@@ -32,4 +32,5 @@ bool mouseMoved();
 void updatePrevInputs();
 bool mouseMovedAtleastOnce();
 bool mouseInGameBounds();
+bool anyButtonReleased();
 #endif

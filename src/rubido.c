@@ -255,7 +255,7 @@ void Game()
 			CSelector_SetPosition(GameSelector, mousexPlayField, mouseyPlayField);
 		}
 	}
-	if(buttonReleased(BUTTON_2) || (mouseButtonReleased(MOUSE_RIGHT) && mouseInGameBounds()))
+	if(buttonReleased(BUTTON_2) || (!anyButtonReleased() && (mouseButtonReleased(MOUSE_RIGHT) && mouseInGameBounds())))
 	{
 		if(!PrintFormShown)
 		{
@@ -264,11 +264,11 @@ void Game()
 		}
 	}
 	
-	if(buttonReleased(BUTTON_1) || (mouseButtonReleased(MOUSE_LEFT) && 
+	if(buttonReleased(BUTTON_1) || (!anyButtonReleased() && (mouseButtonReleased(MOUSE_LEFT) && 
 		((*MOUSE_X >= XOffSet+ ((CSelector_GetPosition(GameSelector).X +0) * TileWidth)) &&
 		(*MOUSE_X <= XOffSet+ ((CSelector_GetPosition(GameSelector).X +1) * TileWidth)) &&
 		(*MOUSE_Y >= YOffSet+ ((CSelector_GetPosition(GameSelector).Y +0) * TileHeight)) &&
-		(*MOUSE_Y <= YOffSet+ ((CSelector_GetPosition(GameSelector).Y +1) * TileHeight)))))
+		(*MOUSE_Y <= YOffSet+ ((CSelector_GetPosition(GameSelector).Y +1) * TileHeight))))))
 
 	{
 		if(PrintFormShown)
@@ -368,7 +368,7 @@ void TitleScreen()
 	}
 	bool mouseok = CMainMenu_SetMouseItem(Menu, *MOUSE_X, *MOUSE_Y);
 
-	if(buttonReleased(BUTTON_1) || (mouseButtonReleased(MOUSE_LEFT) && mouseok))
+	if(buttonReleased(BUTTON_1) || (!anyButtonReleased() && (mouseButtonReleased(MOUSE_LEFT) && mouseok)))
 	{
 		// set the gamestate according to the menu selection
 		playMenuAcknowlege();
@@ -405,13 +405,13 @@ void DifficultySelect()
 
     bool rightMouseOk = mouseMovedAtleastOnce() && (*MOUSE_X >= (SCREEN_SIZE - veryhard1Width) / 2) && (*MOUSE_X <= ((SCREEN_SIZE - veryhard1Width) / 2) + veryhard1Width) && (*MOUSE_Y >= 25) && (*MOUSE_Y <= 25 + veryhard1Height);
 
-	if(buttonReleased(BUTTON_2) || ((mouseButtonReleased(MOUSE_RIGHT)) && mouseInGameBounds()))
+	if(buttonReleased(BUTTON_2) || (!anyButtonReleased() && (mouseButtonReleased(MOUSE_RIGHT)) && mouseInGameBounds()))
 	{
 		playMenuBackSound();
 		GameState = GSTitleScreenInit;
 	}
 	
-	if(buttonReleased(BUTTON_1) || (!rightMouseOk && mouseButtonReleased(MOUSE_LEFT) && mouseInGameBounds()))
+	if(buttonReleased(BUTTON_1) || (!anyButtonReleased() && !rightMouseOk && mouseButtonReleased(MOUSE_LEFT) && mouseInGameBounds()))
 	{
 		playMenuAcknowlege();
 		GameState = GSGameInit;
@@ -439,7 +439,7 @@ void DifficultySelect()
 		playMenuSelectSound();
 	}	
 
-	if(buttonReleased(BUTTON_RIGHT) || (rightMouseOk && (mouseButtonReleased(MOUSE_LEFT))))
+	if(buttonReleased(BUTTON_RIGHT) || (!anyButtonReleased() && rightMouseOk && (mouseButtonReleased(MOUSE_LEFT))))
 	{
 		if(Difficulty == VeryEasy)
 		{
@@ -546,7 +546,7 @@ void Options()
 		COptionsMenu_PreviousItem(OptionsMenu);
 	}
 	
-	if(buttonReleased(BUTTON_2) || (mouseButtonReleased(MOUSE_RIGHT) && mouseInGameBounds()))
+	if(buttonReleased(BUTTON_2) || (!anyButtonReleased() && mouseButtonReleased(MOUSE_RIGHT) && mouseInGameBounds()))
 	{
 		playMenuBackSound();
 		GameState = GSTitleScreenInit;
@@ -554,7 +554,7 @@ void Options()
 
 	bool mouseok = COptionsMenu_SetMouseItem(OptionsMenu, *MOUSE_X, *MOUSE_Y);
 
-	if(buttonReleased(BUTTON_1) || (mouseButtonReleased(MOUSE_LEFT) && mouseok))
+	if(buttonReleased(BUTTON_1) || (!anyButtonReleased() && mouseButtonReleased(MOUSE_LEFT) && mouseok))
 	{
 		// set the gamestate according to the menu selection
 		playMenuAcknowlege();
@@ -594,7 +594,8 @@ void Options()
 //Main Credits loop, will just show an image and wait for a button to be pressed
 void Credits()
 {
-	if(buttonReleased(BUTTON_1) || buttonReleased(BUTTON_2) || ((mouseButtonReleased(MOUSE_LEFT) || mouseButtonReleased(MOUSE_RIGHT)) && mouseInGameBounds()))
+	if(buttonReleased(BUTTON_1) || buttonReleased(BUTTON_2) || 
+	(!anyButtonReleased() && (mouseButtonReleased(MOUSE_LEFT) || mouseButtonReleased(MOUSE_RIGHT)) && mouseInGameBounds()))
 	{
 		playMenuAcknowlege();
 		GameState = GSTitleScreenInit;
