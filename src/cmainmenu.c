@@ -47,6 +47,10 @@ void CMainMenu_PreviousItem(CMainMenu* MainMenu)
 
 bool CMainMenu_SetMouseItem(CMainMenu* MainMenu, int mousex, int mousey)
 {
+	//for systems with no mouse movement which could happen in retroarch
+	if (!mouseMovedAtleastOnce())
+		return false;
+
     if((mousex >= (SCREEN_SIZE - newgame1Width) / 2) && (mousex <= ((SCREEN_SIZE - newgame1Width) / 2) + newgame1Width) && (mousey >= 60) && (mousey <= 60+newgame1Height))
 	{
 		MainMenu->Selection = 1;
@@ -58,7 +62,8 @@ bool CMainMenu_SetMouseItem(CMainMenu* MainMenu, int mousex, int mousey)
 		return true;
 	}
 	if((mousex >= (SCREEN_SIZE - credits1Width) / 2) && (mousex <=  ((SCREEN_SIZE - credits1Width) / 2) + credits1Width) && (mousey >= 100) && (mousey <= 100+credits1Height))
-	{	MainMenu->Selection = 3;
+	{
+		MainMenu->Selection = 3;
 		return true;
 	}
 	return false;

@@ -9,9 +9,6 @@
 #define Color uint32_t
 #define ColorIndex uint8_t
 
-extern uint8_t PREVGAMEPAD1;
-extern uint8_t PREVMOUSE_BUTTONS;
-
 typedef struct Palette Palette;
 struct Palette 
 {
@@ -31,4 +28,8 @@ void getDrawColor(ColorIndex *Index1, ColorIndex *Index2, ColorIndex *Index3, Co
 void setDrawColor(ColorIndex Index1, ColorIndex Index2, ColorIndex Index3, ColorIndex Index4);
 bool buttonReleased(int Button);
 bool mouseButtonReleased(int Button);
+bool mouseMoved();
+void updatePrevInputs();
+bool mouseMovedAtleastOnce();
+bool mouseInGameBounds();
 #endif

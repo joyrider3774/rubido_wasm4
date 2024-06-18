@@ -49,6 +49,10 @@ void COptionsMenu_PreviousItem(COptionsMenu* OptionsMenu)
 
 bool COptionsMenu_SetMouseItem(COptionsMenu* OptionsMenu, int mousex, int mousey)
 {
+	//for systems with no mouse movement which could happen in retroarch
+	if (!mouseMovedAtleastOnce())
+		return false;
+
     if((mousex >= 38) && (mousex <= 38 + ((int) strlen(getPaletteName())*8)) && (mousey >= 57) && (mousey <= 57+8))
 	{
 		OptionsMenu->Selection = 1;

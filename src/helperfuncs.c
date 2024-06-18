@@ -5,6 +5,12 @@
 
 uint8_t PREVGAMEPAD1 = 0;
 uint8_t PREVMOUSE_BUTTONS = 0;
+int16_t PREVMOUSE_X = 0;
+int16_t PREVMOUSE_Y = 0;
+int16_t INITIALMOUSE_X = 0;
+int16_t INITIALMOUSE_Y = 0;
+bool firstSetPrevInputs = true;
+bool didMouseMove = false;
 
 //https://www.geeksforgeeks.org/implement-itoa/
 // A utility function to reverse a string
@@ -129,4 +135,35 @@ void clear(ColorIndex Index)
     setDrawColor(Index1, Index2, Index, Index);
 	rect(0,0, SCREEN_SIZE, SCREEN_SIZE);
 	setDrawColor(Index1, Index2, Index3, Index4);
+}
+
+void updatePrevInputs()
+{
+	if(firstSetPrevInputs)
+	{
+		INITIALMOUSE_X = *MOUSE_X;
+		INITIALMOUSE_Y = *MOUSE_Y;
+		firstSetPrevInputs = false;
+	}
+	PREVGAMEPAD1 = *GAMEPAD1;
+	PREVMOUSE_BUTTONS = *MOUSE_BUTTONS;
+	PREVMOUSE_X = *MOUSE_X;
+	PREVMOUSE_Y = *MOUSE_Y;
+	if(!didMouseMove)
+		didMouseMove = (*MOUSE_X != INITIALMOUSE_X) && (*MOUSE_Y != INITIALMOUSE_Y);
+}
+
+bool mouseMoved()
+{
+	return (PREVMOUSE_X != *MOUSE_X) && (PREVMOUSE_Y != *MOUSE_Y);
+}
+
+bool mouseMovedAtleastOnce()
+{
+	return didMouseMove;
+}
+
+bool mouseInGameBounds()
+{
+	return (*MOUSE_Y <= SCREEN_SIZE) && (*MOUSE_X <= SCREEN_SIZE) && (*MOUSE_Y >= 0) && (*MOUSE_X >=0);
 }

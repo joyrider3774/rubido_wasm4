@@ -255,7 +255,7 @@ void Game()
 			CSelector_SetPosition(GameSelector, mousexPlayField, mouseyPlayField);
 		}
 	}
-	if(buttonReleased(BUTTON_2) || mouseButtonReleased(MOUSE_RIGHT))
+	if(buttonReleased(BUTTON_2) || (mouseButtonReleased(MOUSE_RIGHT) && mouseInGameBounds()))
 	{
 		if(!PrintFormShown)
 		{
@@ -264,7 +264,12 @@ void Game()
 		}
 	}
 	
-	if(buttonReleased(BUTTON_1) || mouseButtonReleased(MOUSE_LEFT))
+	if(buttonReleased(BUTTON_1) || (mouseButtonReleased(MOUSE_LEFT) && 
+		((*MOUSE_X >= XOffSet+ ((CSelector_GetPosition(GameSelector).X +0) * TileWidth)) &&
+		(*MOUSE_X <= XOffSet+ ((CSelector_GetPosition(GameSelector).X +1) * TileWidth)) &&
+		(*MOUSE_Y >= YOffSet+ ((CSelector_GetPosition(GameSelector).Y +0) * TileHeight)) &&
+		(*MOUSE_Y <= YOffSet+ ((CSelector_GetPosition(GameSelector).Y +1) * TileHeight)))))
+
 	{
 		if(PrintFormShown)
 		{
@@ -398,15 +403,15 @@ void DifficultySelect()
 		GameState -= GSInitDiff;
 	}
 
-    bool rightMouseOk = (*MOUSE_X >= (SCREEN_SIZE - veryhard1Width) / 2) && (*MOUSE_X <= ((SCREEN_SIZE - veryhard1Width) / 2) + veryhard1Width) && (*MOUSE_Y >= 25) && (*MOUSE_Y <= 25 + veryhard1Height);
+    bool rightMouseOk = mouseMovedAtleastOnce() && (*MOUSE_X >= (SCREEN_SIZE - veryhard1Width) / 2) && (*MOUSE_X <= ((SCREEN_SIZE - veryhard1Width) / 2) + veryhard1Width) && (*MOUSE_Y >= 25) && (*MOUSE_Y <= 25 + veryhard1Height);
 
-	if(buttonReleased(BUTTON_2) || (mouseButtonReleased(MOUSE_RIGHT)))
+	if(buttonReleased(BUTTON_2) || ((mouseButtonReleased(MOUSE_RIGHT)) && mouseInGameBounds()))
 	{
 		playMenuBackSound();
 		GameState = GSTitleScreenInit;
 	}
 	
-	if(buttonReleased(BUTTON_1) || (!rightMouseOk && mouseButtonReleased(MOUSE_LEFT)))
+	if(buttonReleased(BUTTON_1) || (!rightMouseOk && mouseButtonReleased(MOUSE_LEFT) && mouseInGameBounds()))
 	{
 		playMenuAcknowlege();
 		GameState = GSGameInit;
@@ -476,7 +481,7 @@ void DifficultySelect()
 			blit(anywhere,102, 59, anywhereWidth, anywhereHeight, anywhereFlags);
 			blit(diagonal, 22, 67, diagonalWidth, diagonalHeight, diagonalFlags);
 			blit(horzvert, 6, 59, horzvertWidth, horzvertHeight, horzvertFlags);
-			if(rightMouseOk)
+			if(rightMouseOk || !mouseMovedAtleastOnce())
 				setDrawColor(0,0,0,3);
 			blit(veryeasy1, (SCREEN_SIZE - veryeasy1Width) / 2, 25, veryeasy1Width, veryeasy1Height, veryeasy1Flags);
 			break;
@@ -488,7 +493,7 @@ void DifficultySelect()
 			blit(middle,105, 59, middleWidth, middleHeight, middleFlags);
 			blit(diagonal, 22, 67, diagonalWidth, diagonalHeight, diagonalFlags);
 			blit(horzvert, 6, 59, horzvertWidth, horzvertHeight, horzvertFlags);
-			if(rightMouseOk)
+			if(rightMouseOk || !mouseMovedAtleastOnce())
 				setDrawColor(0,0,0,3);
 			blit(easy1, (SCREEN_SIZE - easy1Width) / 2, 25, easy1Width, easy1Height, easy1Flags);
 			break;
@@ -499,7 +504,7 @@ void DifficultySelect()
 			setDrawColor(0,0,0,4);
 			blit(anywhere,102, 59, anywhereWidth, anywhereHeight, anywhereFlags);
 			blit(horzvert, 6, 59, horzvertWidth, horzvertHeight, horzvertFlags);
-			if(rightMouseOk)
+			if(rightMouseOk || !mouseMovedAtleastOnce())
 				setDrawColor(0,0,0,3);
 			blit(hard1, (SCREEN_SIZE - hard1Width) / 2, 25, hard1Width, hard1Height, hard1Flags);
 			break;
@@ -510,7 +515,7 @@ void DifficultySelect()
 			setDrawColor(0,0,0,4);
 			blit(middle,105, 59, middleWidth, middleHeight, middleFlags);
 			blit(horzvert, 6, 59, horzvertWidth, horzvertHeight, horzvertFlags);
-			if(rightMouseOk)
+			if(rightMouseOk || !mouseMovedAtleastOnce())
 				setDrawColor(0,0,0,3);
 			blit(veryhard1, (SCREEN_SIZE - veryhard1Width) / 2, 25, veryhard1Width, veryhard1Height, veryhard1Flags);
 			break;
@@ -541,7 +546,7 @@ void Options()
 		COptionsMenu_PreviousItem(OptionsMenu);
 	}
 	
-	if(buttonReleased(BUTTON_2) || mouseButtonReleased(MOUSE_RIGHT))
+	if(buttonReleased(BUTTON_2) || (mouseButtonReleased(MOUSE_RIGHT) && mouseInGameBounds()))
 	{
 		playMenuBackSound();
 		GameState = GSTitleScreenInit;
@@ -589,7 +594,7 @@ void Options()
 //Main Credits loop, will just show an image and wait for a button to be pressed
 void Credits()
 {
-	if(buttonReleased(BUTTON_1) || buttonReleased(BUTTON_2) || mouseButtonReleased(MOUSE_LEFT) || mouseButtonReleased(MOUSE_RIGHT))
+	if(buttonReleased(BUTTON_1) || buttonReleased(BUTTON_2) || ((mouseButtonReleased(MOUSE_LEFT) || mouseButtonReleased(MOUSE_RIGHT)) && mouseInGameBounds()))
 	{
 		playMenuAcknowlege();
 		GameState = GSTitleScreenInit;
@@ -628,13 +633,13 @@ void update()
 			break;
 	}
 	frames_drawn++;
-	PREVGAMEPAD1 = *GAMEPAD1;
-	PREVMOUSE_BUTTONS = *MOUSE_BUTTONS;
+	updatePrevInputs();
 }
 
 // Start of the program, should be obvious what happens here
 void start()
 {
+	updatePrevInputs();
 	BoardParts = CBoardParts_Create();
 	Menu = CMainMenu_Create();
 	OptionsMenu = COptionsMenu_Create();
