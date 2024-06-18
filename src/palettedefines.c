@@ -27,10 +27,10 @@ Palette TRIT_PALETTE = {
 };
 
 Palette BLACK_WHITE_PALETTE_TITLE = {
-    0x000000, 
-	0x0A0A0A, 
-    0x6F6F6F, 
-	0xB5B5B5
+   	0x353535,
+	0x000000,
+	0xF0F0F0,
+	0xB5B5B5,
 };
 
 Palette WHITE_BLUE_PALETTE_TITLE = {
@@ -59,8 +59,8 @@ Palette GOLD_PALETTE_TITLE = {
 Palette GB_PALETTE = {
 	0x0f380f,  // 4
 	0x006230,  // 3
-	0x4bac0f,  // 2
-	0x9bbc0f   // 1
+	0x2b9c2f,  // 2
+	0x8bb80f   // 1
 };
 
 //https://lospec.com/palette-list/hollow
