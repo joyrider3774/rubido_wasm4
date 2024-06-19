@@ -33,4 +33,5 @@ void updatePrevInputs();
 bool mouseMovedAtleastOnce();
 bool mouseInGameBounds();
 bool anyButtonReleased();
+void resetPrevMousePos();
 #endif

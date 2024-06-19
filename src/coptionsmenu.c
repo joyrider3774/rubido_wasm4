@@ -55,22 +55,26 @@ bool COptionsMenu_SetMouseItem(COptionsMenu* OptionsMenu, int mousex, int mousey
 
     if((mousex >= 38) && (mousex <= 38 + ((int) strlen(getPaletteName())*8)) && (mousey >= 57) && (mousey <= 57+8))
 	{
-		OptionsMenu->Selection = 1;
+		if(mouseMoved())
+			OptionsMenu->Selection = 1;
 		return true;
 	}
 	if((mousex >= 38) && (mousex <= 38 + (10*8)) && (mousey >= 77) && (mousey <= 77+8))
 	{
-		OptionsMenu->Selection = 2;
+		if(mouseMoved())
+			OptionsMenu->Selection = 2;
 		return true;
 	}
 	if((mousex >= 38) && (mousex <= 38 + (9*8)) && (mousey >= 97) && (mousey <= 97+8))
 	{
-		OptionsMenu->Selection = 3;
+		if(mouseMoved())
+			OptionsMenu->Selection = 3;
 		return true;
 	}
 	if((mousex >= 38) && (mousex <= 38 + (4*8)) && (mousey >= 117) && (mousey <= 117+8))
 	{
-		OptionsMenu->Selection = 4;
+		if(mouseMoved())
+			OptionsMenu->Selection = 4;
 		return true;
 	}
 	return false;

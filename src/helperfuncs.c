@@ -11,6 +11,7 @@ int16_t INITIALMOUSE_X = 0;
 int16_t INITIALMOUSE_Y = 0;
 bool firstSetPrevInputs = true;
 bool didMouseMove = false;
+bool prevMousePosReset = false;
 
 //https://www.geeksforgeeks.org/implement-itoa/
 // A utility function to reverse a string
@@ -147,15 +148,26 @@ void updatePrevInputs()
 	}
 	PREVGAMEPAD1 = *GAMEPAD1;
 	PREVMOUSE_BUTTONS = *MOUSE_BUTTONS;
-	PREVMOUSE_X = *MOUSE_X;
-	PREVMOUSE_Y = *MOUSE_Y;
-	if(!didMouseMove)
-		didMouseMove = (*MOUSE_X != INITIALMOUSE_X) && (*MOUSE_Y != INITIALMOUSE_Y);
+	if(!prevMousePosReset)
+	{
+		PREVMOUSE_X = *MOUSE_X;
+		PREVMOUSE_Y = *MOUSE_Y;
+		if(!didMouseMove)
+			didMouseMove = (*MOUSE_X != INITIALMOUSE_X) || (*MOUSE_Y != INITIALMOUSE_Y);
+	}
+	prevMousePosReset = false;
 }
 
 bool mouseMoved()
 {
-	return (PREVMOUSE_X != *MOUSE_X) && (PREVMOUSE_Y != *MOUSE_Y);
+	return (PREVMOUSE_X != *MOUSE_X) || (PREVMOUSE_Y != *MOUSE_Y);
+}
+
+void resetPrevMousePos()
+{
+	prevMousePosReset = true;
+	PREVMOUSE_X = -1;
+	PREVMOUSE_Y = -1;
 }
 
 bool mouseMovedAtleastOnce()

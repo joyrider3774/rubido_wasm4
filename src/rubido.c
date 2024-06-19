@@ -260,6 +260,8 @@ void Game()
 	{
 		if(!PrintFormShown)
 		{
+			if(!buttonReleased(BUTTON_2))
+				resetPrevMousePos();
 			GameState = GSTitleScreenInit;
 			playMenuBackSound();
 		}
@@ -269,6 +271,8 @@ void Game()
 	{
 		if(PrintFormShown)
 		{
+			if(!buttonReleased(BUTTON_1))
+				resetPrevMousePos();
 			GameState=GSTitleScreenInit;
 			PrintFormShown = false;
 			playMenuAcknowlege();
@@ -374,6 +378,8 @@ void TitleScreen()
 
 	if(buttonReleased(BUTTON_1) || (!anyButtonReleased() && (mouseButtonReleased(MOUSE_LEFT) && mouseok)))
 	{
+		if(!buttonReleased(BUTTON_1))
+			resetPrevMousePos();
 		// set the gamestate according to the menu selection
 		playMenuAcknowlege();
 		switch(CMainMenu_GetSelection(Menu))
@@ -411,12 +417,16 @@ void DifficultySelect()
 
 	if(buttonReleased(BUTTON_2) || (!anyButtonReleased() && (mouseButtonReleased(MOUSE_RIGHT)) && mouseInGameBounds()))
 	{
+		if(!buttonReleased(BUTTON_2))
+			resetPrevMousePos();
 		playMenuBackSound();
 		GameState = GSTitleScreenInit;
 	}
 	
 	if(buttonReleased(BUTTON_1) || (!anyButtonReleased() && !rightMouseOk && mouseButtonReleased(MOUSE_LEFT) && mouseInGameBounds()))
 	{
+		if(!buttonReleased(BUTTON_1))
+			resetPrevMousePos();
 		playMenuAcknowlege();
 		GameState = GSGameInit;
 	}
@@ -552,6 +562,8 @@ void Options()
 	
 	if(buttonReleased(BUTTON_2) || (!anyButtonReleased() && mouseButtonReleased(MOUSE_RIGHT) && mouseInGameBounds()))
 	{
+		if(!buttonReleased(BUTTON_2))
+			resetPrevMousePos();
 		playMenuBackSound();
 		GameState = GSTitleScreenInit;
 	}
@@ -560,6 +572,8 @@ void Options()
 
 	if(buttonReleased(BUTTON_1) || (!anyButtonReleased() && mouseButtonReleased(MOUSE_LEFT) && mouseok))
 	{
+		if(!buttonReleased(BUTTON_1))
+			resetPrevMousePos();
 		// set the gamestate according to the menu selection
 		playMenuAcknowlege();
 		switch(COptionsMenu_GetSelection(OptionsMenu))
@@ -601,6 +615,8 @@ void Credits()
 	if(buttonReleased(BUTTON_1) || buttonReleased(BUTTON_2) || 
 	(!anyButtonReleased() && (mouseButtonReleased(MOUSE_LEFT) || mouseButtonReleased(MOUSE_RIGHT)) && mouseInGameBounds()))
 	{
+		if(!(buttonReleased(BUTTON_1) || buttonReleased(BUTTON_2)))
+			resetPrevMousePos();
 		playMenuAcknowlege();
 		GameState = GSTitleScreenInit;
 	}

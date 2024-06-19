@@ -53,17 +53,20 @@ bool CMainMenu_SetMouseItem(CMainMenu* MainMenu, int mousex, int mousey)
 
     if((mousex >= (SCREEN_SIZE - newgame1Width) / 2) && (mousex <= ((SCREEN_SIZE - newgame1Width) / 2) + newgame1Width) && (mousey >= 60) && (mousey <= 60+newgame1Height))
 	{
-		MainMenu->Selection = 1;
+		if(mouseMoved())
+			MainMenu->Selection = 1;
 		return true;
 	}
 	if((mousex >= (SCREEN_SIZE - options1Width) / 2) && (mousex <= ((SCREEN_SIZE - options1Width) / 2) + options1Width) && (mousey >= 80) && (mousey <= 80+options1Height))
 	{
-		MainMenu->Selection = 2;
+		if(mouseMoved())
+			MainMenu->Selection = 2;
 		return true;
 	}
 	if((mousex >= (SCREEN_SIZE - credits1Width) / 2) && (mousex <=  ((SCREEN_SIZE - credits1Width) / 2) + credits1Width) && (mousey >= 100) && (mousey <= 100+credits1Height))
 	{
-		MainMenu->Selection = 3;
+		if(mouseMoved())
+			MainMenu->Selection = 3;
 		return true;
 	}
 	return false;
